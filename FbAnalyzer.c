@@ -44,6 +44,9 @@ void genSort(int *accList, int l, int r, int (*compare)(int, int));
 void swap(int *accList, int id1, int id2);
 
 /*Search function*/
+void printAccount(int id);
+char* getGender(Gender gender);
+int checkAccount(int id, char *name, char *city, char *gender);
 void binarySearch(int *accList, int l, int r, char *name, char *city, char *gender);
 
 /*Shortest Path*/
@@ -227,8 +230,49 @@ void genSort(int *accList, int l, int r, int (*compare)(int, int)) {
 
 /* ------------------------ Search Function ------------------------ */
 
+void printAccount(int id){
+    Info tmp = getVertexInfo(id);
+    char *gender = getGender(tmp->gender);
+    printf("%d\n%s\n%s\n%s\n\n", id, tmp->name, tmp->city, gender);
+}
+
+char* getGender(Gender gender){
+    char* tmp;
+    if (gender == Male) return tmp = "male";
+    else if (gender == Female) return tmp = "female";
+    else return tmp = "other";
+}
+
+int checkAccount(int id, char *name, char *city, char *gender){
+    Info tmp = getVertexInfo(id);
+    char* tmpgender = getGender(tmp->gender);
+    if (strcasecmp(tmp->name, name) != 0) return 0;
+    if (city != NULL && strcasecmp(tmp->city, city) != 0) return 0;
+    if (gender != NULL && strcasecmp(tmpgender, gender) != 0) return 0;
+    return 1;
+}
+
 void binarySearch(int *accList, int l, int r, char *name, char *city, char *gender) {
-    
+    int mid = (l + r)/2;
+    Info tmp = getVertexInfo(*(accList+mid));
+    if (strcasecmp(tmp->name, name) > 0) binarySearch(accList, l, mid, name, city, gender);
+    else if (strcasecmp(tmp->name, name) < 0) binarySearch(accList, mid, r, name, city, gender);
+    else
+    {
+        int i = mid, j = mid-1;
+        while (i > r)
+        {
+            if (checkAccount(*(accList+i), name, city, gender) == 0) break;
+            printAccount(*(accList+i));
+            i++;
+        }
+        while (j < l)
+        {
+            if (checkAccount(*(accList+j), name, city, gender) == 0) break;
+            printAccount(*(accList+j));
+            j--;
+        }
+    }
 }
 
 /* ------------------------ Shortest Path ------------------------ */
