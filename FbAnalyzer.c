@@ -228,7 +228,82 @@ void genSort(int *accList, int l, int r, int (*compare)(int, int)) {
 /* ------------------------ Search Function ------------------------ */
 
 void binarySearch(int *accList, int l, int r, char *name, char *city, char *gender) {
-    
+    int mid = (l + r)/2, midtmp = mid;
+    Info tmp = getVertexInfo(*(accList+mid));
+    if (strcmp(tmp->name, name) == 0)
+    {
+        if (gender == NULL && city == NULL)
+        {
+            printAccount(mid, city, gender);
+            while (mid < l)
+            {
+                tmp = getVertexInfo(*(accList+mid));
+                if (strcmp(tmp->name, name) != 0) break;
+                else printAccount(*(accList+mid), city, gender);
+                mid--;
+            }
+            while (midtmp > r)
+            {
+                tmp = getVertexInfo(*(accList+mid));
+                if (strcmp(tmp->name, name) != 0) break;
+                else printAccount(*(accList+midtmp), city, gender);
+                midtmp++;
+            }
+        }
+        else if (gender != NULL)
+        {
+            while (mid < l)
+            {
+                tmp = getVertexInfo(*(accList+mid));
+                if (strcmp(tmp->name, name) != 0) break;
+                if (strcmp(tmp->gender, gender) == 0) printAccount(*(accList+mid), city, gender);
+                mid--;
+            }
+            while (midtmp > r)
+            {
+                tmp = getVertexInfo(*(accList+mid));
+                if (strcmp(tmp->name, name) != 0) break;
+                if (strcmp(tmp->gender, gender) == 0) printAccount(*(accList+midtmp), city, gender);
+                midtmp++;
+            }
+        }
+        else if (city != NULL)
+        {
+            while (mid < l)
+            {
+                tmp = getVertexInfo(*(accList+mid));
+                if (strcmp(tmp->name, name) != 0) break;
+                if (strcmp(tmp->city, city) == 0) printAccount(*(accList+mid), city, gender);
+                mid--;
+            }
+            while (midtmp > r)
+            {
+                tmp = getVertexInfo(*(accList+mid));
+                if (strcmp(tmp->name, name) != 0) break;
+                if (strcmp(tmp->city, city) == 0) printAccount(*(accList+midtmp), city, gender);
+                midtmp++;
+            }
+        }
+        else
+        {
+            while (mid < l)
+            {
+                tmp = getVertexInfo(*(accList+mid));
+                if (strcmp(tmp->name, name) != 0) break;
+                if (strcmp(tmp->city, city) == 0 && strcmp(tmp->gender, gender) == 0) printAccount(*(accList+mid), city, gender);
+                mid--;
+            }
+            while (midtmp > r)
+            {
+                    tmp = getVertexInfo(*(accList+mid));
+                if (strcmp(tmp->name, name) != 0) break;
+                if (strcmp(tmp->city, city) == 0 && strcmp(tmp->gender, gender) == 0) printAccount(*(accList+midtmp), city, gender);
+                midtmp++;
+            }
+        }
+    }
+    else if (strcmp(tmp->name, name) > 0) binarySearch(accList, l, r, name, city, gender);
+    else binarySearch(accList, mid, r, name, city, gender);  
 }
 
 /* ------------------------ Shortest Path ------------------------ */
