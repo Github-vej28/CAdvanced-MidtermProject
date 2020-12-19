@@ -244,7 +244,7 @@ void binarySearch(int *accList, int l, int r, char *name, char *city, char *gend
             }
             while (midtmp > r)
             {
-                tmp = getVertexInfo(*(accList+mid));
+                tmp = getVertexInfo(*(accList+midtmp));
                 if (strcmp(tmp->name, name) != 0) break;
                 else printAccount(*(accList+midtmp), city, gender);
                 midtmp++;
@@ -261,7 +261,7 @@ void binarySearch(int *accList, int l, int r, char *name, char *city, char *gend
             }
             while (midtmp > r)
             {
-                tmp = getVertexInfo(*(accList+mid));
+                tmp = getVertexInfo(*(accList+midtmp));
                 if (strcmp(tmp->name, name) != 0) break;
                 if (strcmp(tmp->gender, gender) == 0) printAccount(*(accList+midtmp), city, gender);
                 midtmp++;
@@ -278,7 +278,7 @@ void binarySearch(int *accList, int l, int r, char *name, char *city, char *gend
             }
             while (midtmp > r)
             {
-                tmp = getVertexInfo(*(accList+mid));
+                tmp = getVertexInfo(*(accList+midtmp));
                 if (strcmp(tmp->name, name) != 0) break;
                 if (strcmp(tmp->city, city) == 0) printAccount(*(accList+midtmp), city, gender);
                 midtmp++;
@@ -295,7 +295,7 @@ void binarySearch(int *accList, int l, int r, char *name, char *city, char *gend
             }
             while (midtmp > r)
             {
-                    tmp = getVertexInfo(*(accList+mid));
+                    tmp = getVertexInfo(*(accList+midtmp));
                 if (strcmp(tmp->name, name) != 0) break;
                 if (strcmp(tmp->city, city) == 0 && strcmp(tmp->gender, gender) == 0) printAccount(*(accList+midtmp), city, gender);
                 midtmp++;
